@@ -1,0 +1,1993 @@
+<html manifest="Cache.manifest">
+  <head>
+    <style>
+      html,
+      body {
+        margin: auto;
+        font-family: sans-serif;
+        font-size: 20px;
+        font-weight: lighter;
+        text-align: left;
+        color: #ffffff;
+        background-size: cover;
+      }
+      .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0); /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+      }
+      .content {
+        width: 82%;
+        height: 11%;
+        margin-left: 7.5%;
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        margin-top: 1%;
+        font-size: 25px;
+        text-align: center;
+        border-radius: 30px;
+        padding: 20px;
+        line-height: 12px;
+        position: absolute;
+        bottom: 0px;
+      }
+      .title {
+        font-size: 40px;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-weight: bolder;
+        margin-bottom: 10px;
+      }
+      .yellow {
+        color: yellow;
+      }
+      .hue {
+        color: yellow;
+        padding: 10px;
+        border-radius: 10px;
+        animation: hue 5s linear infinite;
+        -webkit-animation: hue 5s linear infinite;
+        box-shadow: 0px 0px 50px yellow;
+        color: white;
+        background: rgba(255, 255, 0, 0.4);
+      }
+      .hue:hover {
+        color: yellow;
+        background: transparent;
+      }
+      @keyframes hue {
+        0% {
+          filter: hue-rotate(0deg);
+          -webkit-filter: hue-rotate(0deg);
+        }
+        10% {
+          box-shadow: 0px 1px 50px yellow;
+        }
+        20% {
+          box-shadow: 1px 1px 50px yellow;
+        }
+        30% {
+          box-shadow: 1px 0px 50px yellow;
+        }
+        40% {
+          box-shadow: 1px -1px 50px yellow;
+        }
+        50% {
+          box-shadow: 0px -1px 50px yellow;
+        }
+        60% {
+          box-shadow: -1px -1px 50px yellow;
+        }
+        70% {
+          box-shadow: -1px 0px 50px yellow;
+        }
+        80% {
+          box-shadow: -1px 1px 50px yellow;
+        }
+        90% {
+          box-shadow: 0px 1px 50px yellow;
+        }
+        100% {
+          filter: hue-rotate(360deg);
+          -webkit-filter: hue-rotate(360deg);
+        }
+      }
+      .text {
+        padding-bottom: 50px;
+      }
+      .back {
+        font-size: 25px;
+        margin-top: 10px;
+        display: block;
+        line-height: 55px;
+        width: 20%;
+        text-decoration: none;
+        height: 50px;
+        background: white;
+        color: black;
+        border-radius: 15px;
+      }
+      .back:hover {
+        border: 2px solid white;
+        background: transparent;
+        box-sizing: border-box;
+        color: white;
+      }
+      #psip {
+        text-align: center;
+        margin-left: 38%;
+        margin-right: auto;
+        width: 15%;
+        display: flex;
+        position: absolute;
+
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 2em;
+        border: none;
+        padding: 0.8em;
+
+        color: #ffffff;
+        padding-left: 1.5em;
+
+        outline: none;
+        box-shadow: 0 4px 6px -5px hsl(0, 0%, 40%),
+          inset 0px 4px 6px -5px hsl(0, 0%, 2%);
+        backdrop-filter: blur(5px);
+      }
+      /* Modal Content */
+      .modal-content {
+        font-family: BFARNAZ;
+        font-size: 18px;
+        position: relative;
+        background-color: #dddddd;
+        margin: auto;
+        padding: 0;
+        border: 1px solid #888;
+        width: 50%;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+          0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        -webkit-animation-name: animatetop;
+        -webkit-animation-duration: 0.4s;
+        animation-name: animatetop;
+        animation-duration: 0.4s;
+      }
+      button {
+        background: rgba(0, 0, 0, 0.5);
+        box-shadow: 0 5px 20px 0 white;
+        border: 2px solid black;
+        border-radius: 10px;
+        width: 173px;
+        height: 40px;
+        text-align: center;
+        margin: 0.1;
+      }
+      button:hover {
+        box-shadow: 0 5px 50px 0 rgb(104, 255, 33);
+        color: white;
+        border-radius: 20px;
+        background-color: #0f0f53;
+        transition: border-radius, color, box-shadow 0.15s;
+        cursor: pointer;
+      }
+
+      hr {
+        padding: 0;
+        margin: 0;
+        opacity: 0.7;
+      }
+
+      #progress {
+        font-weight: bold;
+        text-shadow: 4px 4px 4px black;
+
+        font-size: 17px;
+      }
+      .pointer {
+        cursor: pointer;
+      }
+    </style>
+    <meta charset="utf-8" />
+    <title>Karo Host 9.00 fw</title>
+    <script>
+      window.applicationCache.ondownloading = function () {
+        document.getElementById("progress").innerHTML =
+          "Page Caching Started!!";
+      };
+      window.applicationCache.onprogress = function (a) {
+        let storeval = Math.round(100 * (a.loaded / a.total));
+        document.getElementById("prog").value = storeval;
+
+        document.getElementById("progress").innerHTML = storeval;
+      };
+      window.applicationCache.oncached = function () {
+        var zz = document.getElementById("prog");
+        zz.remove();
+        document.getElementById("stat2").innerHTML = "cached";
+        document.getElementById("progress").innerHTML =
+          "Page Cached Successfully!!";
+        setTimeout(function () {
+          document.getElementById("progress").innerHTML = "Reopen the Page !!";
+        }, 1500);
+      };
+    </script>
+    <script>
+      function load_poc() {
+        var req = new XMLHttpRequest();
+        req.responseType = "arraybuffer";
+        req.open("GET", PLfile);
+        req.send();
+        req.onreadystatechange = function () {
+          if (req.readyState == 4) {
+            PLD = req.response;
+            var payload_buffer = chain.syscall(
+              477,
+              0,
+              PLD.byteLength * 4,
+              7,
+              0x1002,
+              -1,
+              0
+            );
+            var pl = p.array_from_address(payload_buffer, PLD.byteLength * 4);
+            var padding = new Uint8Array(
+              4 - ((req.response.byteLength % 4) % 4)
+            );
+            var tmp = new Uint8Array(
+              req.response.byteLength + padding.byteLength
+            );
+            tmp.set(new Uint8Array(req.response), 0);
+            tmp.set(padding, req.response.byteLength);
+            var shellcode = new Uint32Array(tmp.buffer);
+            pl.set(shellcode, 0);
+            var pthread = p.malloc(0x10);
+            chain.call(
+              libKernelBase.add32(OFFSET_lk_pthread_create),
+              pthread,
+              0x0,
+              payload_buffer,
+              0
+            );
+            goldset();
+          }
+        };
+      }
+
+      function GetPL() {
+        var req = new XMLHttpRequest();
+        req.open("GET", "http://127.0.0.1:9090/status");
+        req.send();
+        req.onerror = function () {
+          alert(
+            "Cannot Load Payload Because The BinLoader Server Is Not Running"
+          );
+          return;
+        };
+        req.onload = function () {
+          var responseJson = JSON.parse(req.responseText);
+          if (responseJson.status == "ready") {
+            getPayload(PLfile, function (req) {
+              if ((req.status === 200 || req.status === 304) && req.response) {
+                sendPayload("http://127.0.0.1:9090", req.response);
+              }
+            });
+          } else {
+            alert("Cannot Load Payload Because The BinLoader Server Is Busy");
+            return;
+          }
+        };
+        var getPayload = function (pl, onLoadEndCallback) {
+          var req = new XMLHttpRequest();
+          req.open("GET", pl);
+          req.send();
+          req.responseType = "arraybuffer";
+          req.onload = function (event) {
+            if (onLoadEndCallback) onLoadEndCallback(req, event);
+          };
+        };
+        var sendPayload = function (url, data, onLoadEndCallback) {
+          var req = new XMLHttpRequest();
+          req.open("POST", url, true);
+          req.send(data);
+          req.onload = function (event) {
+            allset();
+            if (onLoadEndCallback) onLoadEndCallback(req, event);
+          };
+        };
+      }
+
+      function allset() {
+        window.progress.innerHTML = "Payload loaded";
+      }
+
+      function goldset() {
+        window.progress.innerHTML = "GoldHEN loaded";
+      }
+
+      function goldhen() {
+        progress.innerHTML = "Goldhen loading... please wait";
+        PLfile = "goldhen2b.bin";
+        setTimeout(poc, 500);
+      }
+
+      function goldhen2() {
+        progress.innerHTML = "Goldhen 2.0b2 loading... please wait";
+        PLfile = "goldhen2b2.bin";
+        setTimeout(poc, 500);
+      }
+      function goldhen212() {
+        progress.innerHTML = "Goldhen 2.1.2 loading... please wait";
+        PLfile = "goldhen_212_900.bin";
+        setTimeout(poc, 500);
+      }
+      function goldhen222() {
+        progress.innerHTML = "Goldhen 2.3 loading... please wait";
+        PLfile = "goldhen_2.2.2_900.bin";
+        setTimeout(poc, 500);
+      }
+    </script>
+    <script src="int64.js"></script>
+    <script src="rop.js"></script>
+    <script src="kexploit.js"></script>
+    <script src="webkit.js"></script>
+  </head>
+  <body style="background-color: #1a1920">
+    <h1
+      style="
+        text-shadow: 4px 4px 4px black;
+        font-size: 30px;
+        text-align: center;
+        text-shadow: 4px 4px 4px black;
+        color: yellow;
+      "
+    >
+      Karo Host 9.00 fw custom
+    </h1>
+    <h1
+      id="progress"
+      style="
+        font-size: 25px;
+        text-align: center;
+        text-shadow: 4px 4px 4px black;
+        color: white;
+      "
+    >
+      Status
+    </h1>
+    <h3 id="stat2" style="text-align: center; border: none">
+      cache progress
+      <progress id="prog" value="100" max="100"></progress>
+    </h3>
+    <div id="all" style="text-align: center">
+      <button
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='GoldHen v2.0b by SISTR0 for PS4 9.00 Fw'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="goldhen()"
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: #cec52a;
+        "
+      >
+        GoldHenV2b
+      </button>
+      <button
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='GoldHen v2.0b2 by SISTR0 for PS4 9.00 Fw'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="goldhen2()"
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: #cec52a;
+        "
+      >
+        GoldHenV2b2
+      </button>
+      <button
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='GoldHen v2.1.2 by SISTR0 for PS4 9.00 Fw'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="goldhen212()"
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: #cec52a;
+        "
+      >
+        GoldHenV2.1.2
+      </button>
+      <button
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='GoldHen v2.3 by SISTR0 for PS4 9.00 Fw'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="goldhen222()"
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: #cec52a;
+        "
+      >
+        GoldHenV2.3
+      </button>
+      <br /><br />
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          background-color: blue;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='WebRTE for PS4 9.00 fw'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_WebRTE()"
+      >
+        WebRTE
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          background-color: green;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='ps4debug for PS4 9.00 fw'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_PS4Debug()"
+      >
+        Ps4debug
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          background-color: red;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Orbis Toolbox Loader Alfa 1190 for PS4 9.00 fw'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_Orbis()"
+      >
+        Orbis Toolbox
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Copy json and shn files from USB to PS4'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_copych()"
+      >
+        Cheat Copy
+      </button>
+      <br /><br />
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='A full access FTP server for the PS4'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_FTP()"
+      >
+        FTP
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Move installed games to an external USB drive'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_App2USB()"
+      >
+        App2USB
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Unlocks some debug features available on testkit. ported to 900fw by Karo'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_ToDexE()"
+      >
+        ToDex Enable
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Disable ToDEX ported to 900fw by Karo'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_ToDexD()"
+      >
+        ToDex Disable
+      </button>
+      <br /><br />
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Creates dummy files in the PS4 update folder'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_DisableUpdates()"
+      >
+        Disable Updates
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Removes the dummy files in the PS4 update folder'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_EnableUpdates()"
+      >
+        Enable Update
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Enable Browser'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_EnableBrowser()"
+      >
+        Enable Browser
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Disable the auto opening of the last page used in the PS4 WebBrowser'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_HistoryBlocker()"
+      >
+        History Blocker
+      </button>
+      <br /><br />
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          width: 230px;
+          color: white;
+        "
+        class="pointer"
+        onMouseOver="progress.innerHTML='All Dumper payloads'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        onclick="alldumpers(); return false"
+      >
+        Dumper Group
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          width: 230px;
+          color: white;
+        "
+        class="pointer"
+        onMouseOver="progress.innerHTML='All Linux payloads'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        onclick="alllinux(); return false"
+      >
+        Linux Group
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          width: 230px;
+          color: white;
+        "
+        class="pointer"
+        onMouseOver="progress.innerHTML='All Tools payloads'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        onclick="alltools(); return false"
+      >
+        Tools Group
+      </button>
+      <br /><br />
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          width: 350px;
+          height: 45px;
+          color: white;
+        "
+        class="pointer"
+        onMouseOver="progress.innerHTML='All Mods Gtav & RDR2 payloads'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        onclick="allmods(); return false"
+      >
+        GTAV & RDR2 Mods Group
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Fan Control'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_FAN()"
+      >
+        Fan Control</button
+      ><select
+        style="
+          font-size: 20px;
+          text-align: center;
+          color: black;
+          margin-left: 4px;
+        "
+        id="tempC"
+      ></select
+      ><a style="font-size: 17px; text-align: center; color: white">&#176;C</a>
+      <br />
+    </div>
+    <div id="Linuxs" style="text-align: center; display: none">
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="pointer"
+        onMouseOver="msgs.innerHTML='back to base menu'"
+        ;
+        onmouseout="msgs.innerHTML='Karo Host 5.05 fw'"
+        onclick="backall(); return false"
+      >
+        Back to Menu
+      </button>
+      <br /><br />
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Linux Loader VRAM 1GB by PSXITA'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_LinuxN1gb()"
+      >
+        Linux PSXITA 1G
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Linux Loader VRAM 2GB by PSXITA'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_LinuxN2gb()"
+      >
+        Linux PSXITA 2G
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Linux Loader VRAM 3GB by PSXITA'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_LinuxN3gb()"
+      >
+        Linux PSXITA 3G
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Linux Loader VRAM 4GB by PSXITA'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_LinuxN4gb()"
+      >
+        Linux PSXITA 4G
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Linux Loader VRAM 5GB by PSXITA'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_LinuxN5gb()"
+      >
+        Linux PSXITA 5G
+      </button>
+      <br /><br />
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Linux Loader VRAM 1GB'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_Linux1gb()"
+      >
+        Linux 1G
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Linux Loader VRAM 2GB'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_Linux2gb()"
+      >
+        Linux 2G
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Linux Loader VRAM 3GB'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_Linux3gb()"
+      >
+        Linux 3G
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Linux Loader VRAM 4GB'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_Linux4gb()"
+      >
+        Linux 4G
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Linux Loader VRAM 5GB'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_Linux5gb()"
+      >
+        Linux 5G
+      </button>
+      <br /><br />
+      <button
+        style="
+          width: 300px;
+          height: 50px;
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Whos That Southbridge'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_wtsb()"
+      >
+        Whos_That_Southbridge
+      </button>
+      <br /><br /><br />
+    </div>
+    <div id="Tools" style="text-align: center; display: none">
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="pointer"
+        onMouseOver="msgs.innerHTML='back to base menu'"
+        ;
+        onmouseout="msgs.innerHTML='Karo Host 5.05 fw'"
+        onclick="backall(); return false"
+      >
+        Back to Menu
+      </button>
+      <br /><br />
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='PS4 PKG Backup by Kameleon'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_pkgb()"
+      >
+        PKG Backup
+      </button>
+      <br /><br />
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Create a backup of important database files ans User Data'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_BackupDB()"
+      >
+        DB Backup
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Restore a backup of the database files and User Data'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_RestoreDB()"
+      >
+        DB Restore
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Disable IDU Mode'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_ExitIDU()"
+      >
+        Exit IDU
+      </button>
+      <br /><br />
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Rif Renamer'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_RIFRenamer()"
+      >
+        Rif renamer
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='permanentuart'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_permanentuart()"
+      >
+        permanent uart
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='disable aslr'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_DisableASLR()"
+      >
+        Disable Aslr
+      </button>
+      <br /><br /><br />
+    </div>
+    <div id="Dumpers" style="text-align: center; display: none">
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="pointer"
+        onMouseOver="msgs.innerHTML='back to base menu'"
+        ;
+        onmouseout="msgs.innerHTML='Karo Host 5.05 fw'"
+        onclick="backall(); return false"
+      >
+        Back to Menu
+      </button>
+      <br /><br />
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Dump Games only to a USB drive by Leeful'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_DumperG()"
+      >
+        Dumper Game
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Dump Games Update only to a USB drive by Leeful'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_DumperU()"
+      >
+        Dumper Update
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Dump Merged Games and Update to a USB drive by Leeful'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_DumperMGU()"
+      >
+        Dumper MGU
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Dump Seperate Games and Update to a USB drive by Leeful'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_DumperSGU()"
+      >
+        Dumper SGU
+      </button>
+      <br /><br />
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='kernel dumper'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_KernelDumper()"
+      >
+        Kernel Dumper
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='module dumper'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_ModuleDumper()"
+      >
+        Module Dumper
+      </button>
+      <br /><br /><br />
+    </div>
+    <div id="gtav" style="text-align: center; display: none">
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="pointer"
+        onMouseOver="msgs.innerHTML='back to base menu'"
+        ;
+        onmouseout="msgs.innerHTML='Karo Host 5.05 fw'"
+        onclick="backall(); return false"
+      >
+        Back to Menu
+      </button>
+      <h1
+        style="
+          text-shadow: 4px 4px 4px black;
+          font-size: 30px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: yellow;
+        "
+      >
+        For runing Mods turn on internet
+      </h1>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='GTAV ArabicGuy 1.00 by Karo for 900 L1+R1 '"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_GTAAr0()"
+      >
+        GTAV A100
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='GTAV ArabicGuy 1.27 by rfoodxmodz fixed by Karo for 900 ==> + []'"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_GTAAr1()"
+      >
+        GTAV A127
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='GTAV ArabicGuy 1.32 by rfoodxmodz fixed by Karo for 900 '"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_GTAAr2()"
+      >
+        GTAV A132
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='GTAV ArabicGuy 1.33 by rfoodxmodz for 900 '"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_GTAAr3()"
+      >
+        GTAV A133
+      </button>
+      <br /><br />
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='GTAV BeefQueefMod 1.33 by GraFfix_221211 for 900 '"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_GTABQ()"
+      >
+        GTAV BQ133
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='GTAV BeefQueefMod 1.34 by GraFfix_221211 for 900 '"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_GTABQ2()"
+      >
+        GTAV BQ134
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='GTAV BeefQueefMod 1.38 by GraFfix_221211 for 900 '"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_GTABQ3()"
+      >
+        GTAV BQ138
+      </button>
+      <br /><br />
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='GTAV Menu-Base 1.27 Ported by Karo for 900 ==> + [] '"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_GTAVMB()"
+      >
+        GTAV MB127
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='GTAV LTS 1.27 Ported by Karo for 900 ==> + [] '"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_GTAVLTS()"
+      >
+        GTAV LTS127
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='GTAV Expulsion Mod Menu 1.35 by LushModz for 900 '"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_expul()"
+      >
+        GTAV Ex135
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='GTAV Expulsion Mod Menu 1.38 V4.0 by LushModz for 900 '"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_expul2()"
+      >
+        GTAV Ex138
+      </button>
+      <br /><br />
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='GTAV Expulsion Mod Menu 1.32 v1.1 by x_WildeModz_x for 900 '"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_Wilde32()"
+      >
+        GTAV W132
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='GTAV Expulsion Mod Menu 1.33 v1.1 by x_WildeModz_x for 900 '"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_Wilde33()"
+      >
+        GTAV W133
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='GTAV Expulsion Mod Menu 1.38 v1.6 by x_WildeModz_x for 900 '"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_Wilde38()"
+      >
+        GTAV W138
+      </button>
+      <button
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: white;
+        "
+        class="button"
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='GTAV Lamance Mod 1.38 v0.9 by david1337hax '"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_GTAL()"
+      >
+        GTAV Lamance
+      </button>
+      <br /><br />
+      <button
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Red dead redemption 2 mod  menu 1.00 V1.3.6 by RF0oDxM0Dz (R1 + Square) '"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_Oysters100()"
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: red;
+        "
+      >
+        RDR2 V1.00
+      </button>
+      <button
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Red dead redemption 2 mod  menu 1.13 V1.3.6 by RF0oDxM0Dz (R1 + Square) '"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_Oysters113()"
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: red;
+        "
+      >
+        RDR2 V1.13
+      </button>
+      <button
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Red dead redemption 2 mod  menu 1.19 V1.3.6 by RF0oDxM0Dz (R1 + Square) '"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_Oysters119()"
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: red;
+        "
+      >
+        RDR2 V1.19
+      </button>
+      <button
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Red dead redemption 2 mod  menu 1.24 V1.3.6 by RF0oDxM0Dz (R1 + Square) '"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_Oysters124()"
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: red;
+        "
+      >
+        RDR2 V1.24
+      </button>
+      <button
+        id="button-Payload"
+        onMouseOver="progress.innerHTML='Red dead redemption 2 mod  menu 1.29 V1.3.6 by RF0oDxM0Dz (R1 + Square) '"
+        ;
+        onmouseout="progress.innerHTML='Status'"
+        type="button"
+        onclick="load_Oysters129()"
+        style="
+          font-size: 20px;
+          text-align: center;
+          text-shadow: 4px 4px 4px black;
+          color: red;
+        "
+      >
+        RDR2 V1.29
+      </button>
+      <!--<button id="button-Payload" onMouseOver="progress.innerHTML='Red dead redemption 2 mod  menu 1.29 Havana Menu by 0x199 '"; onmouseout="progress.innerHTML='Status'" type="button" onclick="load_Oysters129h()" style='font-size:20px;text-align:center;text-shadow: 4px 4px 4px black;color:green' > RDR2 V1.29 Havana </button>-->
+      <br /><br />
+      <br />
+    </div>
+    <div class="content">
+      <div class="text">
+        <br /><span style="text-shadow: 4px 4px 4px black" class="yellow"
+          >Designed, Compiled by :</span
+        >&nbsp;&nbsp;
+        <span style="text-shadow: 4px 4px 4px black" class="hue"
+          >Karo Sharifi</span
+        >
+        <br /><br /><br /><br /><span
+          style="text-shadow: 4px 4px 4px black"
+          class="yellow"
+          >Super Special Thanks To :</span
+        >&nbsp;&nbsp;
+        <a
+          style="
+            font-size: 20px;
+            text-align: center;
+            text-shadow: 4px 4px 4px black;
+            color: white;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial,
+              sans-serif;
+            padding-top: 1%;
+          "
+          >Sleirsgoevy , Al Azif , ChendoChap , SiSTRo ,Specter ,Znullptr ...
+        </a>
+      </div>
+    </div>
+    <script>
+      function load_copych() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "CopyCH.bin";
+        GetPL();
+      }
+
+      function load_wtsb() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "wtsb.bin";
+        GetPL();
+      }
+
+      function load_PS4Debug() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "ps4debug.bin";
+        GetPL();
+      }
+
+      function load_permanentuart() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "permanentuart.bin";
+        GetPL();
+      }
+
+      function load_App2USB() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "app2usb.bin";
+        GetPL();
+      }
+
+      function load_BackupDB() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "backupdb.bin";
+        GetPL();
+      }
+
+      function load_pkgb() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "pkg-backup.bin";
+        GetPL();
+      }
+
+      function load_DumperG() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "DumperG.bin";
+        GetPL();
+      }
+
+      function load_DumperU() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "DumperU.bin";
+        GetPL();
+      }
+
+      function load_DumperMGU() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "DumperMGU.bin";
+        GetPL();
+      }
+
+      function load_DumperSGU() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "DumperSGU.bin";
+        GetPL();
+      }
+
+      function load_KernelDumper() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "kerneldumper.bin";
+        GetPL();
+      }
+
+      function load_ModuleDumper() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "mdumper.bin";
+        GetPL();
+      }
+
+      function load_RestoreDB() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "restoredb.bin";
+        GetPL();
+      }
+
+      function load_DisableASLR() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "disableaslr.bin";
+        GetPL();
+      }
+
+      function load_DisableUpdates() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "disableupdates.bin";
+        GetPL();
+      }
+
+      function load_EnableUpdates() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "enableupdates.bin";
+        GetPL();
+      }
+
+      function load_EnableBrowser() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "enablebrowser.bin";
+        GetPL();
+      }
+
+      function load_ExitIDU() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "exitidu.bin";
+        GetPL();
+      }
+
+      function load_FTP() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "ftp.bin";
+        GetPL();
+      }
+
+      function load_HistoryBlocker() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "historyblocker.bin";
+        GetPL();
+      }
+
+      function load_RIFRenamer() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "rifrenamer.bin";
+        GetPL();
+      }
+
+      function load_Orbis() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "Orbis-Toolbox-900.bin";
+        GetPL();
+      }
+
+      function load_LinuxN1gb() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "payload-900-1gb.bin";
+        GetPL();
+      }
+
+      function load_LinuxN2gb() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "payload-900-2gb.bin";
+        GetPL();
+      }
+
+      function load_LinuxN3gb() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "payload-900-3gb.bin";
+        GetPL();
+      }
+
+      function load_LinuxN4gb() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "payload-900-4gb.bin";
+        GetPL();
+      }
+
+      function load_LinuxN5gb() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "payload-900-5gb.bin";
+        GetPL();
+      }
+
+      function load_Linux1gb() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "LinuxLoader.bin";
+        GetPL();
+      }
+
+      function load_Linux2gb() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "LinuxLoader2gb.bin";
+        GetPL();
+      }
+
+      function load_Linux3gb() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "LinuxLoader3gb.bin";
+        GetPL();
+      }
+
+      function load_Linux4gb() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "LinuxLoader4gb.bin";
+        GetPL();
+      }
+
+      function load_Linux5gb() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "LinuxLoader5gb.bin";
+        GetPL();
+      }
+
+      function load_GTAVMB() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "gtavmb127.bin";
+        GetPL();
+      }
+
+      function load_GTAVLTS() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "gtavLTS127.bin";
+        GetPL();
+      }
+
+      function load_GTAAr0() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "gtava0.bin";
+        GetPL();
+      }
+
+      function load_GTAAr1() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "gtava1.bin";
+        GetPL();
+      }
+
+      function load_GTAAr2() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "gtava2.bin";
+        GetPL();
+      }
+
+      function load_GTAAr3() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "gtava3.bin";
+        GetPL();
+      }
+
+      function load_GTAL() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "Lamance9.bin";
+        GetPL();
+      }
+
+      function load_expul() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "LushModz-1.0-9.00.bin";
+        GetPL();
+      }
+
+      function load_expul2() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "LushModz-4.0-9.00.bin";
+        GetPL();
+      }
+
+      function load_GTABQ() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "BeefQueefMod.bin";
+        GetPL();
+      }
+
+      function load_GTABQ2() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "BeefQueefMod134.bin";
+        GetPL();
+      }
+
+      function load_GTABQ3() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "BeefQueefMod138.bin";
+        GetPL();
+      }
+
+      function load_Wilde32() {
+        progress.innerHTML = "Payload loading... please wait";
+        PLfile = "WildeModz-1.32.bin";
+        GetPL();
+      }
+
+      function load_Wilde33() {
+        progress.innerHTML = "Payload loading... please wait";
+        PLfile = "WildeModz-1.33.bin";
+        GetPL();
+      }
+
+      function load_Wilde38() {
+        progress.innerHTML = "Payload loading... please wait";
+        PLfile = "WildeModz-1.38.bin";
+        GetPL();
+      }
+
+      function load_Oysters100() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "Oysters1.00.bin";
+        GetPL();
+      }
+
+      function load_Oysters113() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "Oysters1.13.bin";
+        GetPL();
+      }
+
+      function load_Oysters119() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "Oysters1.19.bin";
+        GetPL();
+      }
+
+      function load_Oysters124() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "Oysters1.24.bin";
+        GetPL();
+      }
+
+      function load_Oysters129() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "Oysters1.29.bin";
+        GetPL();
+      }
+
+      function load_Oysters129h() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "rdr2-129-900-havana.bin";
+        GetPL();
+      }
+
+      function load_ToDexE() {
+        progress.innerHTML = "ToDEX Enabling... please wait";
+        PLfile = "todex-enable.bin";
+        GetPL();
+      }
+
+      function load_ToDexD() {
+        progress.innerHTML = "ToDEX Disabling... please wait";
+        PLfile = "todex-disable.bin";
+        GetPL();
+      }
+
+      function load_WebRTE() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "WebRTE.bin";
+        GetPL();
+      }
+
+      function load_FAN() {
+        progress.innerHTML = "Payload sending... please wait";
+        PLfile = "fan" + tempC.value + ".bin";
+        GetPL();
+      }
+
+      function allmods() {
+        all.style.display = "none";
+        gtav.style.display = "block";
+      }
+      function alldumpers() {
+        all.style.display = "none";
+        Dumpers.style.display = "block";
+      }
+      function alllinux() {
+        all.style.display = "none";
+        Linuxs.style.display = "block";
+      }
+      function alltools() {
+        all.style.display = "none";
+        Tools.style.display = "block";
+      }
+      function backall() {
+        all.style.display = "block";
+        gtav.style.display = "none";
+        Linuxs.style.display = "none";
+        Dumpers.style.display = "none";
+        Tools.style.display = "none";
+      }
+    </script>
+    <script>
+      localStorage.setItem("fanthreshold", tempC.value);
+      for (var i = 50; i <= 80; i = i + 5) {
+        var select = document.getElementById("tempC");
+        var option = document.createElement("OPTION");
+        select.options.add(option);
+        option.text = i;
+        option.value = i;
+      }
+      tempC.value = 60;
+    </script>
+  </body>
+</html>
