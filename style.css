@@ -3,6 +3,61 @@
   padding: 0;
   font-family: sans-serif;
 }
+/*Animations*/
+.text_1 {
+  animation: text1;
+}
+.text_2 {
+  animation: text2;
+}
+.text_1,
+.text_2 {
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
+  position: relative;
+  animation-duration: 8s;
+  animation-timing-function: steps(30, end);
+  animation-iteration-count: infinite;
+  position: absolute;
+}
+.text_1::after,
+.text_2::after {
+  content: "|";
+  position: absolute;
+  right: 0;
+  animation: caret infinite;
+  animation-duration: 1s;
+  animation-timing-function: steps(1, end);
+}
+@keyframes text2 {
+  0%,
+  50%,
+  100% {
+    width: 0;
+  }
+}
+@keyframes text1 {
+  0%,
+  50%,
+  100% {
+    width: 0;
+  }
+  10%,
+  40% {
+    width: 5em;
+  }
+}
+@keyframes caret {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+/*End of animation styles*/
 .hero {
   position: relative;
   width: 100%;
